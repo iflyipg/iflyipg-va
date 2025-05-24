@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    {{-- Abuelo007X: Defining a custom FavIcon as per the instructions --}}
+    <link rel="shortcut icon" type="image/png" href="{{ public_asset('/logos/logo_small.jpg') }}"/>
     <title>@yield('title') | {{ config('app.name') }}</title>
     {{-- Start of required lines block. DON'T REMOVE THESE LINES! They're required or might break things --}}
     <meta name="base-url" content="{!! url('') !!}">
@@ -11,11 +13,12 @@
     <meta name="csrf-token" content="{!! csrf_token() !!}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;800">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {{-- Abuelo007X: Changed to iflyipg Kit as per the new instructions --}}
     <script src="https://kit.fontawesome.com/ac6551e0d1.js" crossorigin="anonymous"></script>
     <link href="{{ public_asset('/assets/global/css/vendor.css') }}" rel="stylesheet"/>
-    <link href="{{ public_asset('/disposable/stylesheet/theme_v3.css?ver=1') }}" rel="stylesheet"/>
+    <link href="{{ public_asset('/disposable/stylesheet/theme_v3_va.css?ver=1') }}" rel="stylesheet"/>
     @if(Theme::getSetting('gen_darkmode'))
-      <link href="{{ public_asset('/disposable/stylesheet/theme_v3_darkmode.css?ver=1') }}" rel="stylesheet"/>
+      <link href="{{ public_asset('/disposable/stylesheet/theme_v3_darkmode_va.css?ver=1') }}" rel="stylesheet"/>
     @endif
     @yield('scripts_head')
     @yield('css')
@@ -40,20 +43,30 @@
       <div id="page-contents" class="container-fluid">
         @include('flash.message')
         @yield('content')
-        {{-- Fixed position logos for IVAO and VATSIM, links are not possible --}}
+        {{-- Abuelo007X: "Fixed position logos for IVAO and VATSIM, links are not possible" Below added changes to resolve this --}}
+        <br><br><br>  {{-- Abuelo007X: Adding space to avoid overlapping with other objects --}}
         @if(empty($plain))
           @if(Theme::getSetting('gen_ivao_logo'))
-            <div class="card col-3 col-lg-1 shadow-none bg-transparent border-0" style="position: absolute; bottom: 2rem; left: 2rem; z-index: -1;">
-              @if(filled(Theme::getSetting('gen_ivao_vaid')))
-                <img class="card-img" src="{{ public_asset('disposable/logo_ivao_partner.svg') }}">
-              @else
-                <img class="card-img" src="{{ public_asset('disposable/logo_ivao_main.png') }}">
-              @endif
+          {{-- Abuelo007X: z-index need to be positive to be able to work the link --}}
+            <div class="card col-3 col-lg-1 shadow-none bg-transparent border-0" style="position: absolute; bottom: 2rem; left: 2rem; z-index: 1;">
+              {{-- Abuelo007X: Adding ivao link --}}
+              <a href="https://www.ivao.aero" target="_blank">
+                @if(filled(Theme::getSetting('gen_ivao_vaid')))
+                  <img class="card-img" src="{{ public_asset('disposable/logo_ivao_partner.svg') }}">
+                @else
+                  <img class="card-img" src="{{ public_asset('disposable/logo_ivao_main.png') }}">
+                @endif
+              </a>
             </div>
           @endif
           @if(Theme::getSetting('gen_vatsim_logo'))
-            <div class="card col-3 col-lg-1 shadow-none bg-transparent border-0" style="position: absolute; bottom: 2rem; right: 2rem; z-index: -1;">
-              <img class="card-img" src="{{ public_asset('disposable/logo_vatsim.png') }}">
+            {{-- Abuelo007X: z-index neex to be positive to be able to work the link --}}
+            <div class="card col-3 col-lg-1 shadow-none bg-transparent border-0" style="position: absolute; bottom: 2rem; right: 2rem; z-index: 1;">
+              {{-- Abuelo007X: Adding vatsim link --}}
+              <a href="https://www.vatsim.net" target="_blank">
+                {{-- Abuelo007X: changing the name of the logo to the new added version for our VA --}}
+                  <img class="card-img" src="{{ public_asset('/logos/logo_vatsim_non_white.png') }}">
+              </a>
             </div>
           @endif
         @endif

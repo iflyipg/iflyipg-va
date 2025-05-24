@@ -1,0 +1,106 @@
+/**
+ * You can customize the DARK MODE look here.
+ * Practically and mostly the colors need to be adjusted according to your darkness wishes.
+ * To alter a definition, just copy the section over from main stylesheet
+ * add [data-theme="dark"] before the definition and do your changes
+ * Below are some examples to begin with and to explain the logic a little bit more
+ */
+
+/* General Settings */
+[data-theme="dark"] {
+  color: rgb(207, 200, 191) !important;
+  background-color: black !important;
+  background-image: url("/disposable/theme_bg_dark.jpg");
+}
+
+/* Clock */
+[data-theme="dark"] #clock { color: rgb(24, 167, 170) !important; }
+
+/* SideBar text */
+[data-theme="dark"] #Dispo_SideBar { color: rgb(71, 62, 19); font-weight: 400; }
+[data-theme="dark"] #Dispo_SideBar a { color: rgb(71, 62, 19); font-weight: 400; }
+
+/* Generic Link */
+/* [data-theme="dark"] a { color: rgb(170, 142, 16) !important; font-weight: 400; } */  /* Abuelo007X */
+
+/* Cards */
+[data-theme="dark"] .card { background-color: rgba(126, 101, 82, 0.65); }
+[data-theme="dark"] .card-title { color: rgb(31, 209, 212) }  /* Abuelo007X */
+/* [data-theme="dark"] .card-footer { font-weight: 400 !important; background-color: rgba(43, 39, 36, 0.75); } */  /* Abuelo007X */
+[data-theme="dark"] .card-footer { font-weight: 400 !important; background-color: rgba(46, 45, 45, 0.75); }
+
+/* [data-theme="dark"] .table { font-weight: 400 !important; color:rgb(206, 138, 116);} */  /* Abuelo007X */
+[data-theme="dark"] .table { font-weight: 300 !important; color:rgb(255, 255, 255); background-color: rgb(88, 84, 84);}
+
+
+
+/* phpVMS Core Maps, inverted */
+[data-theme="dark"] #map { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);}
+[data-theme="dark"] #live_flights_table { color: rgb(211, 203, 194) !important; }
+
+/* Select2 Dropdown fixes */
+[data-theme="dark"] .select2-search input { color: black !important; }
+[data-theme="dark"] .select2-results { color: black !important; }
+
+/*
+[data-theme="dark"] .col .card .card-body .fas {
+  color: rgb(31, 209, 212);
+}
+*/
+
+[data-theme="dark"] #Dispo_NavBar .form-check .form-check-label {
+  color: white; /* Abuelo007X: Changed from black to white based on new background */
+}
+
+[data-theme="dark"] #Dispo_NavBar .nav-item .nav-link span {
+  color: white; /* Abuelo007X: Changed from black to white to keep samme color between dark and not-dark mode */
+}
+
+[data-theme="dark"] .card-title { color: rgb(255, 255, 255); }
+[data-theme="dark"] .card-body { color: rgb(255, 255, 255); }
+[data-theme="dark"] .card-body h5 { color: rgb(255, 255, 255); }
+[data-theme="dark"] .card-body h6 { color: rgb(224, 215, 209) !important; }
+
+[data-theme="dark"] .card-header { font-weight: 400 !important; background-color: rgba(46, 45, 45, 0.75); }
+
+[data-theme="dark"] .card-body .table td { color: rgb(207, 200, 191); }
+[data-theme="dark"] .card-body .table th { color: rgb(216, 210, 197); }
+
+[data-theme="dark"] .card-body .map-info-box .table img { background-color: beige; }  /* Abuelo007X */
+
+[data-theme="dark"] .card-body .table td img { background-color: gray; }  /* Abuelo007X */
+
+[data-theme="dark"] .modal .modal-body { background-color: rgb(39, 34, 34) !important; }  /* Abuelo007X */
+
+/* Generic Link Style */
+
+[data-theme="dark"] .btn {
+  color: white !important;
+  font-weight: 400;
+}
+[data-theme="dark"] a {
+  text-decoration: none;
+  color: rgb(168, 187, 183);
+  font-weight: 400;
+}
+[data-theme="dark"] a:hover {
+  text-decoration: none;
+  color: rgb(179, 168, 168);
+  font-weight: 600;
+}
+[data-theme="dark"] a:active {
+  text-decoration: none;
+  color: indigo;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .text-muted { color: rgb(233, 219, 219) !important; }
+
+
+/* Generic Backgrounds, inverted - moved here after modifications */
+[data-theme="dark"] .bg-light { background-color: #333 !important; }
+[data-theme="dark"] .bg-white { background-color: #000 !important; }
+[data-theme="dark"] .bg-black { background-color: #eee !important; }
+[data-theme="dark"] .bg-warning { color: #333 !important; }
+[data-theme="dark"] .btn-warning { color: #333 !important; }
+
