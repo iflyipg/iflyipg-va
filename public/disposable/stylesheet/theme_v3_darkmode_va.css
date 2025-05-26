@@ -72,6 +72,9 @@
 
 [data-theme="dark"] .modal .modal-body { background-color: rgb(39, 34, 34) !important; }  /* Abuelo007X */
 
+[data-theme="dark"] .table-danger { --bs-table-bg: #635859 !important; }  /* Abuelo007X */
+
+
 /* Generic Link Style */
 
 [data-theme="dark"] .btn {
