@@ -16,7 +16,7 @@
     "gen_map_fleet": 1,
     "gen_darkmode": 1,
     "gen_nicescroll": 0,
-    "gen_stable_approach": 0,
+    "gen_stable_approach": 1,
     "gen_multilang": 1,
     "home_disable": 0,
     "home_ivao_logo": 0,
