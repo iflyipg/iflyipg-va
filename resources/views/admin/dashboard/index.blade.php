@@ -43,6 +43,9 @@
     <div class="row">
       <div class="col-md-6">
         {{-- Intentionally Left Blank --}}
+        @php
+          phpinfo();
+        @endphp
       </div>
       <div class="col-md-6">
         {{-- Intentionally Left Blank --}}
