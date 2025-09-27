@@ -99,14 +99,22 @@ class ImportService extends Service
             // Try to validate
             $validator = Validator::make($row, $importer->getColumns());
             if ($validator->fails()) {
-                $errors = 'Error in row '.$offset.','.implode(';', $validator->errors()->all());
+                $errors = 'Error in csv row # '.($offset+1).','.implode(';', $validator->errors()->all());
                 $importer->errorLog($errors);
 
                 continue;
             }
 
             $importer->import($row, $offset);
+
+            // Abuelo007X: Adding on the log informational checkpoint every 1000 imported records
+            if (is_int(($offset)/1000)) {
+                Log::info('Processed until now '.($offset).' rows');
+            }
         }
+
+        // Abuelo007X: Adding on the log information of final total number of  imported records
+        $importer->log('Processed a total of '.($offset).' rows');
 
         return $importer->status;
     }

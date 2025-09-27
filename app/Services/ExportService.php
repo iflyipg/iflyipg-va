@@ -20,35 +20,46 @@ class ExportService extends Service
 {
     /**
      * @param string $path
+     * 
+     * Abuelo007X: Adding $open_mode as parameter
+     * 
      */
-    public function openCsv($path): Writer
+    public function openCsv($path, $open_mode): Writer
     {
-        $writer = Writer::createFromPath($path, 'w+');
+        $writer = Writer::createFromPath($path, $open_mode);
         CharsetConverter::addTo($writer, 'utf-8', 'utf-8');
 
         return $writer;
     }
 
     /**
-     * Run the actual importer
+     * Run the actual exporter
      *
      *
      * @throws \League\Csv\CannotInsertRecord
+     * 
+     *      
+     * Abuelo007X: 
+     * - Adding $ChunkIndex Variable as optional used by exportFlights function this to be able to change between append and write mode
      */
-    protected function runExport(Collection $collection, ImportExport $exporter): string
+    protected function runExport(Collection $collection, ImportExport $exporter, $chunkIndex = null, $timeStamp = null): string
     {
-        $filename = 'export_'.$exporter->assetType.'.csv';
+        $filename = 'export_'.$exporter->assetType.'.'.$timeStamp.'.csv';
 
         // Create the directory - makes it inside of storage/app
         Storage::makeDirectory('import');
         $path = storage_path('/app/import/export_'.$filename.'.csv');
 
-        Log::info('Exporting "'.$exporter->assetType.'" to '.$path);
+        if ($chunkIndex > 1) {
+            $writer = $this->openCsv($path, 'a+');
+            Log::info('Exporting Append Mode "'.$exporter->assetType.'" to '.$path.' Chunk '.$chunkIndex);
+        } else {
+            $writer = $this->openCsv($path, 'w+');
+            // Write out the header first
+            $writer->insertOne($exporter->getColumns());
+            Log::info('Exporting Write mode "'.$exporter->assetType.'" to '.$path.' Chunk '.$chunkIndex);
+        }
 
-        $writer = $this->openCsv($path);
-
-        // Write out the header first
-        $writer->insertOne($exporter->getColumns());
 
         // Write the rest of the rows
         foreach ($collection as $row) {
@@ -118,10 +129,13 @@ class ExportService extends Service
      * @return mixed
      *
      * @throws \League\Csv\CannotInsertRecord
+     * 
+     * Abuelo007X: Adding $ChunkIndex Variable from Admin FlightController change
+     * 
      */
-    public function exportFlights($flights)
+    public function exportFlights($flights, $chunkIndex, $timeStamp)
     {
-        return $this->runExport($flights, new FlightExporter());
+        return $this->runExport($flights, new FlightExporter(), $chunkIndex, $timeStamp);
     }
 
     /**

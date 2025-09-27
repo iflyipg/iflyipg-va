@@ -193,8 +193,10 @@ class FlightImporter extends ImportExport
         $this->processFares($flight, $row['fares']);
         $this->processFields($flight, $row['fields']);
 
+        /** Abuelo007X: To avoid many lines on the log file. Really not useful
         $this->log('Imported row '.($index + 1));
-
+        */
+        
         return true;
     }
 
@@ -279,7 +281,9 @@ class FlightImporter extends ImportExport
             $count++;
         }
 
+        /** Abuelo007X: To avoid many lines on the log file. Really not useful
         Log::info('Subfleets added/processed: '.$count);
+        */
     }
 
     /**

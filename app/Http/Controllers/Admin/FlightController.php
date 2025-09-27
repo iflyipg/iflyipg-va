@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Laracasts\Flash\Flash;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Carbon\Carbon;
 
 class FlightController extends Controller
 {
@@ -264,9 +265,20 @@ class FlightController extends Controller
             $where['airline_id'] = $airline_id;
             $file_name = 'flights-'.$airline_id.'.csv';
         }
-        $flights = $this->flightRepo->where($where)->orderBy('airline_id')->orderBy('flight_number')->orderBy('route_code')->orderBy('route_leg')->get();
 
-        $path = $exporter->exportFlights($flights);
+        /** Abuelo007X: Adding Chunk logic to improve memory management + timeStamp for filename to avoid overwrite between two people doing at the same time */
+        $chunkSize = 5000;
+        $chunkIndex = 1;
+        $path = null;
+        $timeStamp = Carbon::now()->format('zHis');
+
+        $this->flightRepo->where($where)->orderBy('airline_id')->orderBy('flight_number')->orderBy('route_code')->orderBy('route_leg')->chunk($chunkSize, function($chunk) use (&$path, $exporter, &$chunkIndex, $timeStamp) {
+            $path = $exporter->exportFlights($chunk, $chunkIndex, $timeStamp);
+            $chunkIndex++;
+        });
+        /** Abuelo007X */
+
+        Log::info('Exporting "'.$exporter->assetType.'" to '.$path.' completed');
 
         return response()->download($path, $file_name, ['content-type' => 'text/csv'])->deleteFileAfterSend(true);
     }
