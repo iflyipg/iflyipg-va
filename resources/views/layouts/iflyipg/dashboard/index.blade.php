@@ -64,6 +64,17 @@
             @widget('DBasic::LeaderBoard', ['source' => 'pilot', 'period' => 'currentm', 'count' => 5, 'type' => 'lrate'])
           </div>
         </div>
+        <div class="row row-cols-lg-3">
+          <div class="col-md">
+            @widget('TopPilotsbyAirline', ['airline_id' => 1,'limit' => 5])
+          </div>
+          <div class="col-md">
+            @widget('TopPilotsbyAirline', ['airline_id' => 3, 'limit' => 5])
+          </div>
+          <div class="col-md">
+            @widget('DBasic::LeaderBoard', ['source' => 'pilot', 'period' => 'currentm', 'count' => 5, 'type' => 'lrate_low'])
+          </div>
+        </div>
       @endif
     </div>
     {{-- Main Dashboard : RIGHT --}}
