@@ -9,6 +9,13 @@
       @else
         <td>
           <a href="{{ route('frontend.downloads.download', [$file->id]) }}" target="_blank"  @if($file->isExternalFile) data-external-redirect="{{ $file->url }}" @endif>{{ $file->name }}</a>
+                    {{-- Abuelo007X: Add this option to clarify is current stable version and how to activate the Beta update --}}
+          @if (str_contains($files, 'ACARS'))
+            <br>
+            This is the "Stable" version
+            <br>
+            To get Beta, turn On the "Enable Beta Updates" in settings
+          @endif
         </td>
       @endif
       <td class="text-end">
